@@ -238,7 +238,9 @@ def main_worker(gpu, ngpus_per_node, args):
         return
 
     for epoch in range(args.start_epoch, args.epochs):
+        print('main worker():\n', args.start_epoch, args.epochs, epoch)
         if args.distributed:
+            print('args.distributed if statement: got here?')
             train_sampler.set_epoch(epoch)
         adjust_learning_rate(optimizer, epoch, args)
 
@@ -264,6 +266,7 @@ def main_worker(gpu, ngpus_per_node, args):
 
 
 def train(train_loader, model, criterion, optimizer, epoch, args):
+    print('train(): ', epoch)
     batch_time = AverageMeter('Time', ':6.3f')
     data_time = AverageMeter('Data', ':6.3f')
     losses = AverageMeter('Loss', ':.4e')
